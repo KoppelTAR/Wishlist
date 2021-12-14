@@ -2,8 +2,13 @@ const date = require('../getDate.js');
 const Wish = require('../models/wish');
 
 exports.getMainPage = (request, response)=> {
-    let today = date.getDate();
-    response.render('index', {dateToRender: today});
+    Wish.fetchWishes(wishes => {
+        console.log(wishes);
+
+        let today = date.getDate();
+        response.render('index', {dateToRender: today, myWishes: wishes});
+    });
+
 }
 
 exports.getDate = (req, res) => { //req - request, res - response
@@ -21,5 +26,11 @@ exports.postWish = (req, res) => {
     const newWish = new Wish(req.body.userWish);
     newWish.saveWish();
 
+    res.redirect('/');
+}
+
+exports.deleteWish = (req, res) => {
+    let wishToDelete = req.body.wishToDelete;
+    Wish.deleteWish(wishToDelete);
     res.redirect('/');
 }
