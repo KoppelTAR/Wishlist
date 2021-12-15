@@ -4,31 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My wishlist</title>
+    <link rel="stylesheet" href="css/homepage.css">
+    <script src="https://kit.fontawesome.com/697c2c5344.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container">
         <h1>
             <%= dateToRender %>
         </h1>
-        <form action="/" method="POST">
+        <form action="/" method="POST" enctype="multipart/form-data">
             <input type="text" name="userWish" placeholder="add a wish">
-            <button type="submit">Add a wish</button>
+            <input type="file" name="userFile">
+            <button class="addWish" type="submit">Add a wish</button>
         </form>
 
         <div class="wish-container">
             <ul>
 
                 <% for(let i = 0; i < myWishes.length; i ++) { %>
-                    <li><%= myWishes[i].description %>
+                    <hr>
+                    <li class="wish"><%= myWishes[i].description %>
                         <form action="/deleteWish" method="POST" style="display: inline-block;">
                             <input type="hidden" name="wishToDelete" value="<%= myWishes[i].description %>">
-                            <button type="submit">X</button>
+                            <button class="fas fa-trash-alt" type="submit"></button>
                         </form>
+                        <img class="image" src="<%= myWishes[i].imageUrl %>" alt="">
+                        
                     </li>
                 <%} %>
             </ul>
         </div>
     </div>
-    
+
+    <div class="footer">
+        <h3>Get in touch with me on:</h3>
+        <div class="li-wrapper">
+            <i class="fab fa-reddit fa-2x mr-1"></i><a href="#">Reddit</a>
+        </div>
+        <div class="li-wrapper">
+            <i class="fab fa-twitter fa-2x mr-1"></i><a href="#">Twitter</a>
+        </div>
+        
+        <div>
+            <p class="copyright">Kaspar Kop. &#169; 2021</p>
+        </div>
+    </div>   
 </body>
 </html>
